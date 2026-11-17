@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calengerlas ✨</title>
+  <!-- Etiquetas para que se abra en pantalla completa al guardarla en el inicio -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#13111c" />
+  <!-- Ícono personalizado -->
+  <link rel="icon" type="image/jpeg" href="imagenes/calendar app icon.jpg" />
+  <link rel="apple-touch-icon" href="imagenes/calendar app icon.jpg" />
+  <!-- Librería FullCalendar -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>✨ Calengerlas ✨</h1>
+    <p>Nuestro calendario compartido</p>
+  </header>
+
+  <main>
+    <div id="calendar"></div>
+  </main>
+
+  <!-- Modal para agregar evento -->
+  <div id="eventModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Nuevo plan</h2>
+      <p id="selectedDateText"></p>
+
+      <label for="eventTitle">¿Qué hacemos?</label>
+      <input type="text" id="eventTitle" placeholder="Ej: Merienda, parcial, cine..." />
+
+      <label for="eventTime">Horario (opcional)</label>
+      <input type="time" id="eventTime" />
+
+      <label for="eventAuthor">¿Quién lo agrega?</label>
+      <select id="eventAuthor">
+        <option value="Mimi|#8be9fd">Mimi 🩵</option>
+        <option value="Male|#b8a1ff">Male 💜</option>
+        <option value="Marti|#ffafcc">Marti 🩷</option>
+        <option value="Mili|#ffb380">Mili 🧡</option>
+      </select>
+
+      <div class="modal-buttons">
+        <button id="cancelBtn" class="btn-secondary">Cancelar</button>
+        <button id="saveBtn" class="btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK (v10 modular) -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
