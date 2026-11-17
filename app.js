@@ -48,6 +48,8 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
   },
   firstDay: 1,
   displayEventTime: false,
+  height: "100%",
+  expandRows: true,
   headerToolbar: {
     left: "prev,next today",
     center: "title",
