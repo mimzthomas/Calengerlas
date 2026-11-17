@@ -198,59 +198,80 @@ button {
 }
 
 /* =========================================
-   DISEÑO RESPONSIVE PARA CELULARES
+   DISEÑO RESPONSIVE PARA CELULARES (SIN SCROLL)
    ========================================= */
 @media (max-width: 650px) {
   body {
-    padding: 10px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    overflow: hidden;
   }
 
   header {
-    margin-bottom: 14px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
   }
 
   header h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  header p {
+    font-size: 0.8rem;
   }
 
   main {
-    padding: 12px 8px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 6px;
     border-radius: 12px;
   }
 
+  #calendar {
+    flex: 1;
+    min-height: 0;
+  }
+
   .fc .fc-header-toolbar {
-    flex-direction: column-reverse;
-    gap: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px !important;
   }
 
   .fc .fc-toolbar-chunk:nth-child(2) {
     position: static;
     transform: none;
-    text-align: center;
   }
 
   .fc .fc-toolbar-title {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
 
   .fc .fc-button {
-    padding: 6px 12px;
-    font-size: 0.85rem;
+    padding: 4px 8px;
+    font-size: 0.8rem;
   }
 
   .fc-col-header-cell-cushion {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
+    padding: 2px 0 !important;
   }
 
   .fc-daygrid-day-number {
-    font-size: 0.8rem;
-    padding: 4px;
+    font-size: 0.75rem;
+    padding: 2px 4px;
   }
 
   .fc-daygrid-event {
-    font-size: 0.72rem;
-    line-height: 1.15;
-    padding: 2px 4px;
+    font-size: 0.68rem;
+    line-height: 1.1;
+    padding: 1px 3px;
+    margin-bottom: 2px !important;
     word-break: break-word;
   }
 
