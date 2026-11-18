@@ -198,7 +198,7 @@ button {
 }
 
 /* =========================================
-   DISEÑO RESPONSIVE PARA CELULARES (SIN SCROLL)
+   DISEÑO RESPONSIVE PARA CELULARES (CENTRADO + SIN SCROLL)
    ========================================= */
 @media (max-width: 650px) {
   body {
@@ -210,7 +210,7 @@ button {
   }
 
   header {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     flex-shrink: 0;
   }
 
@@ -236,24 +236,30 @@ button {
     min-height: 0;
   }
 
+  /* Título centrado arriba y botones abajo, bien compactos */
   .fc .fc-header-toolbar {
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column-reverse;
     align-items: center;
+    gap: 6px;
     margin-bottom: 8px !important;
   }
 
   .fc .fc-toolbar-chunk:nth-child(2) {
     position: static;
     transform: none;
+    text-align: center;
+  }
+
+  .fc .fc-toolbar-chunk:nth-child(3) {
+    display: none;
   }
 
   .fc .fc-toolbar-title {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
   }
 
   .fc .fc-button {
-    padding: 4px 8px;
+    padding: 4px 10px;
     font-size: 0.8rem;
   }
 
