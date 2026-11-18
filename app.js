@@ -8,14 +8,14 @@ import {
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-// ⚠️ MANTENÉ ACÁ TUS CREDENCIALES DE FIREBASE ⚠️
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_PROYECTO.firebaseapp.com",
-  projectId: "TU_PROYECTO",
-  storageBucket: "TU_PROYECTO.appspot.com",
-  messagingSenderId: "TU_SENDER_ID",
-  appId: "TU_APP_ID"
+  apiKey: "AIzaSyCGWrx3vkpD9lik78AcIcn1dd5EKuOQftk",
+  authDomain: "calengerlas.firebaseapp.com",
+  projectId: "calengerlas",
+  storageBucket: "calengerlas.firebasestorage.app",
+  messagingSenderId: "917951367844",
+  appId: "1:917951367844:web:3bb4c2adb353bb27ba3431",
+  measurementId: "G-W9TCRYRN3D"
 };
 
 // Inicializar Firebase
@@ -96,23 +96,39 @@ onSnapshot(eventosRef, (snapshot) => {
   });
 });
 
-// Guardar nuevo evento
-saveBtn.addEventListener("click", async () => {
+// Función para guardar y cerrar el pop-up al instante
+async function guardarEvento() {
   const titulo = eventTitleInput.value.trim();
   if (!titulo || !fechaSeleccionada) return;
 
   const [autor, color] = eventAuthorSelect.value.split("|");
   const hora = eventTimeInput.value;
+  const fecha = fechaSeleccionada;
 
-  await addDoc(eventosRef, {
-    titulo: titulo,
-    hora: hora,
-    autor: autor,
-    color: color,
-    fecha: fechaSeleccionada
-  });
-
+  // Cierra el pop-up inmediatamente
   modal.classList.add("hidden");
+
+  try {
+    await addDoc(eventosRef, {
+      titulo: titulo,
+      hora: hora,
+      autor: autor,
+      color: color,
+      fecha: fecha
+    });
+  } catch (error) {
+    alert("Error al guardar en Firebase (revisá las Reglas de Firestore): " + error.message);
+  }
+}
+
+saveBtn.addEventListener("click", guardarEvento);
+
+// Permitir guardar también apretando Enter
+eventTitleInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    guardarEvento();
+  }
 });
 
 // Cerrar modal
