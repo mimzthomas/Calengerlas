@@ -5,6 +5,7 @@ import {
   addDoc,
   deleteDoc,
   doc,
+  getDocs,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
@@ -18,12 +19,10 @@ const firebaseConfig = {
   measurementId: "G-W9TCRYRN3D"
 };
 
-// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const eventosRef = collection(db, "eventos");
 
-// Elementos del DOM
 const modal = document.getElementById("eventModal");
 const selectedDateText = document.getElementById("selectedDateText");
 const eventTitleInput = document.getElementById("eventTitle");
@@ -34,7 +33,6 @@ const cancelBtn = document.getElementById("cancelBtn");
 
 let fechaSeleccionada = null;
 
-// Inicializar Calendario
 const calendarEl = document.getElementById("calendar");
 const calendar = new FullCalendar.Calendar(calendarEl, {
   initialView: "dayGridMonth",
@@ -76,10 +74,8 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
 
 calendar.render();
 
-// Escuchar cambios en tiempo real desde Firebase
-onSnapshot(eventosRef, (snapshot) => {
+function pintarEventos(snapshot) {
   calendar.getEvents().forEach((ev) => ev.remove());
-
   snapshot.forEach((documento) => {
     const data = documento.data();
     const horaTexto = data.hora ? `${data.hora} - ` : "";
@@ -94,9 +90,12 @@ onSnapshot(eventosRef, (snapshot) => {
       display: "block"
     });
   });
-});
+}
 
-// Función para guardar y cerrar el pop-up al instante
+// Carga inicial inmediata + escucha en tiempo real
+getDocs(eventosRef).then(pintarEventos);
+onSnapshot(eventosRef, pintarEventos);
+
 async function guardarEvento() {
   const titulo = eventTitleInput.value.trim();
   if (!titulo || !fechaSeleccionada) return;
@@ -105,7 +104,6 @@ async function guardarEvento() {
   const hora = eventTimeInput.value;
   const fecha = fechaSeleccionada;
 
-  // Cierra el pop-up inmediatamente
   modal.classList.add("hidden");
 
   try {
@@ -117,13 +115,12 @@ async function guardarEvento() {
       fecha: fecha
     });
   } catch (error) {
-    alert("Error al guardar en Firebase (revisá las Reglas de Firestore): " + error.message);
+    alert("Error al guardar en Firebase: " + error.message);
   }
 }
 
 saveBtn.addEventListener("click", guardarEvento);
 
-// Permitir guardar también apretando Enter
 eventTitleInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -131,7 +128,6 @@ eventTitleInput.addEventListener("keydown", (e) => {
   }
 });
 
-// Cerrar modal
 cancelBtn.addEventListener("click", () => {
   modal.classList.add("hidden");
 });
